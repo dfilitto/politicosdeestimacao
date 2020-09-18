@@ -1,0 +1,4 @@
+<?php
+// para apagar ususarios
+
+?>

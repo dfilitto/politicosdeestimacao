@@ -1,4 +1,7 @@
 <?php
+
+
+
 class ClasseBase {
 
     // Properties caracteristicas
@@ -6,27 +9,19 @@ class ClasseBase {
     private $nome;
 
     public function __construct($id=0, $nome="") {
-        $this->set_id($id);
-        $this->set_nome($nome);
+        $this->id = $id;
+        $this->nome = $nome;
+    }
+   
+    public function __set($atrib, $value){
+        $this->$atrib = $value;
     }
 
-    // Methods de acesso 
-    // set armazena valor na propriedade
-    //get pega o valor da propriedade
-    public function set_id($valor) {
-        $this->id = $valor;
-    }
-
-    public function get_id() {
-        return $this->id;
-    }
-
-    public function set_nome($valor) {
-        $this->nome = $valor;
+    public function __get($atrib){
+        return $this->$atrib;
     }
     
-    public function get_nome() {
-        return $this->nome;
-    }
+    
+    
 }
 ?>

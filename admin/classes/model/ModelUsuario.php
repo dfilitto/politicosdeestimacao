@@ -1,5 +1,7 @@
 <?php
-include ("ClasseBase.php");
+
+namespace classes\model;
+
 class ModelUsuario extends ClasseBase{
     private $foto;
     private $email;

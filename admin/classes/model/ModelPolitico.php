@@ -1,5 +1,4 @@
 <?php
-    include ("ClasseBase.php");
     class ModelPolitico extends ClasseBase{
        
         private $foto;

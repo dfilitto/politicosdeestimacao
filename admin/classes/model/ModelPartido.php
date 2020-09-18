@@ -1,5 +1,4 @@
 <?php
-    include ("ClasseBase.php");
     class ModelPartido extends ClasseBase{
        
         private $sigla;

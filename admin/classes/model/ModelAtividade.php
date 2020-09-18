@@ -1,58 +1,27 @@
 <?php
     class ModelAtividade {
         private $id;
-        private $politicos_id;
+        private $politicosId;
         private $atividade;
         private $descricao;
-        private $atpositiva;
+        private $atPositiva;
 
-        public function __construct($id=0, $politicos_id="", $atividade="", $descricao="", $atpositiva="") {
-            $this->set_id($id);
-            $this->set_politicos_id($nome);
-            $this->set_atividade($sigla);
-            $this->set_descricao($site);
-            $this->set_atpositiva($numero);
-        }
-
-        public function set_id($id){
+        public function __construct($id=0, $politicosId="", $atividade="", $descricao="", $atPositiva="") {
             $this->id = $id;
-        }
-
-        public function get_id(){
-            return $this->id;
-        }
-
-        public function set_politicos_id($politicos_id){
-            $this->politicos_id = $politicos_id;
-        }
-
-        public function get_politicos_id(){
-            return $this->politicos_id;
-        }
-
-        public function set_atividade($atividade){
+            $this->politicosId = $politicosId;
             $this->atividade = $atividade;
-        }
-
-        public function get_atividade(){
-            return $this->atividade;
-        }
-
-        public function set_descricao($descricao){
             $this->descricao = $descricao;
+            $this->atPositiva = $atPositiva;
         }
 
-        public function get_descricao(){
-            return $this->descricao;
+        public function __set($atrib, $value){
+            $this->$atrib = $value;
         }
-
-        public function set_atpositiva($atpositiva){
-            $this->atpositiva = $atpositiva;
+    
+        public function __get($atrib){
+            return $this->$atrib;
         }
-
-        public function get_atpositiva(){
-            return $this->atpositiva;
-        }
+        
 
     }
 ?>

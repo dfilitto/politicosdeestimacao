@@ -1,55 +1,120 @@
 <?php
-   include_once ("dadosconexao.php");
-   include_once ("../model/ClasseBase.php");
-   include_once ("../model/ModelCargo.php");
+
+   //include_once ("dadosconexao.php");
+   //include_once ("../model/ClasseBase.php");
+   //include_once ("../model/ModelCargo.php");
 
    class DalCargo{
-    
-    private $conn; //minha conexão
 
-    public function __construct(){  
-        try {
-           
-            $typeserver = TYPESERVER;
-            $servername = SERVERNAME;
-            $username = USERNAME;
-            $password = PASSWORD;
-            $dbname = DBNAME;
+    //propriedades privadas
+    private $typeserver; 
+    private $servername;
+    private $username;
+    private $password;
+    private $dbname;
 
-            $this->conn = new PDO("$typeserver:host=$servername;dbname=$dbname", $username, $password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully <br>";
-        } catch(PDOException $e) {
-            echo "Error: " . $e->getMessage()."<br>";
-        }
+    public function __construct($typeserver="", $servername="", $username="", $password="", $dbname=""){  
+        if ($typeserver==""){
+            //gambiarra para não ficar digitando os dados do servidor
+            $this->typeserver = TYPESERVER; 
+            $this->servername = SERVERNAME; 
+            $this->username = USERNAME; 
+            $this->password = PASSWORD; 
+            $this->dbname = DBNAME;
+        }     
     }
 
     public function insert($cargo){
-        //inserir um cargo
-        $sql = "insert cargos values (null, '".$cargo->get_nome()."')";
-        $this->conn->exec($sql);
-        //$this->conn->close();
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully <br>"; //conectou
+            //inserir um cargo
+            $sql = "insert cargos values (null, '".$cargo->nome."')";
+            $conn->exec($sql);
+            $cargo->id=$conn->lastInsertId();
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
     }
 
-    public function update(){
-        //atualizar um cargo
+    public function update($cargo){
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully <br>"; //conectou
+            //inserir um cargo
+            $sql = "update cargos set nome = '".$cargo->nome."' where id = ".$cargo->id;
+            $conn->exec($sql);
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
     }
 
-    public function delete(){
-        //deletar um cargo
+    public function delete($id){
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully <br>"; //conectou
+            //inserir um cargo
+            $sql = "delete from cargos where id = $id";
+            $conn->exec($sql);
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
     }
 
-    public function search(){
-        //procurar vários cargos
+    public function search($valor=""){
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //inserir um cargo
+            $sql = "select * from cargos where nome like '%$valor%'";
+            //Prepares a statement for execution and returns a statement object
+            $stmt  = $conn->query($sql);
+            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCargo', ['id','nome']);
+            return $result;
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
     }
 
-    public function get_cargo($id){
+    public function getCargo($id){
         //recuper um cargo
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully <br>"; //conectou
+            //inserir um cargo
+            $sql = "select * from cargos where id = $id";
+            //Prepares a statement for execution and returns a statement object
+            $stmt = $conn->query($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCargo', ['id','nome']);
+            $result = $stmt->fetch();
+            return $result;
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
     }
-
-    
-    
-
-
-   }
+}
 ?>
