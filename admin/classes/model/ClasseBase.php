@@ -1,9 +1,5 @@
 <?php
-
-
-
 class ClasseBase {
-
     // Properties caracteristicas
     private $id;
     private $nome;
@@ -20,8 +16,5 @@ class ClasseBase {
     public function __get($atrib){
         return $this->$atrib;
     }
-    
-    
-    
 }
 ?>

@@ -1,3 +1,12 @@
+<?php 
+    require_once ("session.php");
+
+    $dalUsuario = new DalUsuario();
+    $usuarios = $dalUsuario->search();
+
+?>
+
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -48,18 +57,16 @@
                                 <th class="d-none d-md-table-cell">ID</th>
                                 <th>Nome Completo</th>
                                 <th class="d-none d-md-table-cell">E-mail</th>
-                                <th class="d-none d-lg-table-cell">Data Registro</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                         </thead>
 
                         <tbody>
-
+                            <?php foreach($usuarios as $u){ ?>
                             <tr>
-                                <th class="d-none d-md-table-cell">1</th>
-                                <td>Usuário Cadastrado Número 1</td>
-                                <td class="d-none d-md-table-cell">usuarioum@email.com.br</td>
-                                <td class="d-none d-lg-table-cell">25/10/2000</td>
+                                <th class="d-none d-md-table-cell"><?php echo $u->id; ?></th>
+                                <td><?php echo $u->nome; ?></td>
+                                <td class="d-none d-md-table-cell"><?php echo $u->email; ?></td>
                                 <td class="text-center">
 
  <a href="usuariosList.php" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-eye"></i></a>
@@ -70,7 +77,7 @@
 
                                 </td>
                             </tr>
-
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

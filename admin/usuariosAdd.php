@@ -1,3 +1,24 @@
+<?php 
+    require_once ("session.php");
+
+    //programar o cadastro
+    if (isset($_POST['btCadastrar']))
+    {
+        //pegar os dados da tela
+        $usuario = new ModelUsuario();
+        $usuario->id = 0;
+        $usuario->nome = $_POST['inputNome'];
+        $usuario->email = $_POST['inputEmail'];
+        $usuario->senha = $_POST['inputPassword'];
+        $usuario->foto = "Temporário";
+        //salvar no banco de dados
+        $dalUsuario = new DalUsuario();
+        $dalUsuario->insert($usuario);
+        
+    }
+?>
+
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -41,28 +62,27 @@
                     </a>
                 </div>
                 <div class="dropdown-divider"></div>
-                <form enctype="multipart/form-data" action="#">
+                <form enctype="multipart/form-data" action="#" method="post">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="inputEmail">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="inputPassword">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome completo">
+                        <input type="text" class="form-control" id="inputNome" placeholder="Nome completo" name="inputNome">
                     </div>
                     <div class="form-group">
                         <label for="inputFoto">Foto</label>
-                        <input type="file" class="form-control" id="inputFoto"
-                        >
+                        <input type="file" class="form-control" id="inputFoto" name="inputFoto" >
                     </div>
                     
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary" name="btCadastrar">Cadastrar</button>
                 </form>
 
             </div>
