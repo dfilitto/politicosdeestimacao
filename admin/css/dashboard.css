@@ -1,3 +1,19 @@
+/* cx de notificação */
+.cxnotifica {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+    background-color: rgba(255, 135, 81, 0.79);
+    font-size: 25px;
+    line-height: 2em;
+    text-align: center;
+    z-index: 1000;
+}
+
 body{
     background-color: #f0f0f0;
 }

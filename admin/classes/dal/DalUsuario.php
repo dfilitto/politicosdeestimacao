@@ -28,16 +28,23 @@
             //define como irá tratar o erro
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
-            //inserir um cargo
-            $sql = "insert usuarios values (null, '".$usuario->nome."', '".$usuario->foto."', '".$usuario->email."', '".$usuario->senha."')";
-            $conn->exec($sql);
-            $usuario->id=$conn->lastInsertId();
+            $obj = $this->getUsuarioPorEmail($usuario->email);
+            if($obj == false){
+                $sql = "insert usuarios values (null, '".$usuario->nome."', '".$usuario->foto."', '".$usuario->email."', '".$usuario->senha."')";
+                $conn->exec($sql);
+                $usuario->id=$conn->lastInsertId();
+            }
+            else{
+               throw new Exception('Já existe um usuário "'.$obj->nome.'" cadastrado com esse e-mail');
+            }
+            
+            //
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
         }
     }
 
-    public function update($cargo){
+    public function update($usuario){
         try {
             //tipod do servidor, local e banco de dados
             $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
@@ -47,8 +54,19 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "update cargos set nome = '".$cargo->nome."' where id = ".$cargo->id;
-            $conn->exec($sql);
+            $obj = $this->getUsuarioPorEmail($usuario->email);
+            if($obj == false || $obj->id = $usuario->id){
+                $sql = "update usuarios set nome = '".$usuario->nome.
+                "', foto = '".$usuario->foto.
+                "', email = '".$usuario->email.
+                "', senha='".$usuario->senha."' where id = ".$usuario->id;
+                $conn->exec($sql);
+            }
+            else{
+               throw new Exception('Já existe um usuário "'.$obj->nome.'" cadastrado com esse e-mail');
+            }
+           
+           
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
         }
@@ -101,10 +119,32 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "select * from cargos where id = $id";
+            $sql = "select * from usuarios where id = $id";
             //Prepares a statement for execution and returns a statement object
             $stmt = $conn->query($sql);
-            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCargo', ['id','nome']);
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelUsuario', ['id','nome','email','foto','senha']);
+            $result = $stmt->fetch();
+            return $result;
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
+    }
+
+    public function getUsuarioPorEmail($email){
+        //recuper um cargo
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //echo "Connected successfully <br>"; //conectou
+            //inserir um cargo
+            $sql = "select * from usuarios where email = '$email'";
+            //Prepares a statement for execution and returns a statement object
+            $stmt = $conn->query($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelUsuario', ['id','nome','email','foto','senha']);
             $result = $stmt->fetch();
             return $result;
         } catch(PDOException $e) {

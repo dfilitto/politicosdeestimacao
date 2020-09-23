@@ -4,17 +4,30 @@
     //programar o cadastro
     if (isset($_POST['btCadastrar']))
     {
-        //pegar os dados da tela
-        $usuario = new ModelUsuario();
-        $usuario->id = 0;
-        $usuario->nome = $_POST['inputNome'];
-        $usuario->email = $_POST['inputEmail'];
-        $usuario->senha = $_POST['inputPassword'];
-        $usuario->foto = "Temporário";
-        //salvar no banco de dados
-        $dalUsuario = new DalUsuario();
-        $dalUsuario->insert($usuario);
-        
+        try{
+            //pegar os dados da tela
+            $usuario = new ModelUsuario();
+            $usuario->id = 0;
+            $usuario->nome = $_POST['inputNome'];
+            $usuario->email = $_POST['inputEmail'];
+            $usuario->senha = $_POST['inputPassword'];
+            $usuario->foto = 'https://i1.wp.com/dfilitto.com.br/wp-content/uploads/2015/07/FotoPessoa.jpg';
+            //falta fazer o upload
+            //falta verificar se o usuário já existe
+
+            //salvar no banco de dados
+            $dalUsuario = new DalUsuario();
+            $dalUsuario->insert($usuario);
+            //validar e-mail
+            echo( '<div class="cxnotifica">Registro de código '.$usuario->id.' inserido com sucesso </div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=usuariosList.php'>";
+            //falta falar o resultado da operação
+        }
+        catch(Exception $erro){
+            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+
+        } 
     }
 ?>
 

@@ -1,9 +1,25 @@
 <?php 
     require_once ("session.php");
-
     $dalUsuario = new DalUsuario();
     $usuarios = $dalUsuario->search();
-
+    if (isset($_GET['id'])&&$_GET['op']=="excluir"){
+        $id = $_GET['id'];
+        $dalUsuario->delete($id);
+        echo( '<div class="cxnotifica">Registro de código '.$id.' sendo excluido </div>' );
+        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+    }
+    if (isset($_GET['id'])&&$_GET['op']=="detalhes"){
+        $id = $_GET['id'];
+        $usuario = $dalUsuario->getUsuario($id);
+        echo( '<div class="cxnotifica">'.
+        "<h2> Dados do usuário</h2>".
+        "<h3>Id: ".$usuario->id."</h3>".
+        "<h3>Nome: ".$usuario->nome."</h3>".
+        "<h3>E-mail: ".$usuario->email."</h3>".
+        '<img src="'.$usuario->foto.'" alt="Foto do usuário" />'.
+        ' </div>' );
+        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+    }
 ?>
 
 
@@ -69,9 +85,9 @@
                                 <td class="d-none d-md-table-cell"><?php echo $u->email; ?></td>
                                 <td class="text-center">
 
- <a href="usuariosList.php" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-eye"></i></a>
- <a href="usuariosUp.php" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-edit"></i></a>
- <a href="usuariosDel.php" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+ <a href="usuariosList.php?id=<?php echo $u->id; ?>&op=detalhes" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-eye"></i></a>
+ <a href="usuariosUp.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-edit"></i></a>
+ <a href="usuariosList.php?id=<?php echo $u->id; ?>&op=excluir" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
 
 
 

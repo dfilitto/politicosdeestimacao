@@ -1,5 +1,40 @@
 <?php 
     require_once ("session.php");
+
+    if (isset($_GET['id'])){
+        $id = $_GET['id'];
+        $dalUsuario = new DalUsuario();
+        $usuario = $dalUsuario->getUsuario($id);
+    }
+
+    //programar o cadastro final
+    if (isset($_POST['btAtualizar']))
+    {
+        try{
+            //pegar os dados da tela
+            $usuario = new ModelUsuario();
+            $usuario->id = $_POST['inputId'];
+            $usuario->nome = $_POST['inputNome'];
+            $usuario->email = $_POST['inputEmail'];
+            $usuario->senha = $_POST['inputPassword'];
+            $usuario->foto = 'https://i1.wp.com/dfilitto.com.br/wp-content/uploads/2015/07/FotoPessoa.jpg';
+            //falta fazer o upload
+            //falta verificar se o usuário já existe
+
+            //salvar no banco de dados
+            $dalUsuario = new DalUsuario();
+            $dalUsuario->update($usuario);
+            //validar e-mail
+            echo( '<div class="cxnotifica">Registro de código '.$usuario->id.' alterado com sucesso </div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=usuariosList.php'>";
+            //falta falar o resultado da operação
+        }
+        catch(Exception $erro){
+            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+
+        } 
+    }
 ?>
 
 
@@ -46,28 +81,27 @@
                     </a>
                 </div>
                 <div class="dropdown-divider"></div>
-                <form enctype="multipart/form-data" action="#">
+                <form enctype="multipart/form-data" action="#" method="post">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Email</label>
-                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="inputEmail" value="<?php echo $usuario->email; ?>">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Password</label>
-                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Digite um novo Password" name="inputPassword" >
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome completo">
+                        <input type="text" class="form-control" id="inputNome" placeholder="Nome completo" name="inputNome" value="<?php echo $usuario->nome; ?>">
                     </div>
                     <div class="form-group">
                         <label for="inputFoto">Foto</label>
-                        <input type="file" class="form-control" id="inputFoto"
-                        >
+                        <input type="file" class="form-control" id="inputFoto" name="inputFoto" >
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary">Alterar</button>
+                    <input type="hidden" name="inputId" value="<?php echo $usuario->id; ?>" >
+                    <button type="submit" class="btn btn-primary" name="btAtualizar">Atualizar</button>
                 </form>
 
             </div>
