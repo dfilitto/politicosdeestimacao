@@ -55,7 +55,7 @@
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
             $obj = $this->getUsuarioPorEmail($usuario->email);
-            if($obj == false || $obj->id = $usuario->id){
+            if($obj == false || $obj->id == $usuario->id){
                 $sql = "update usuarios set nome = '".$usuario->nome.
                 "', foto = '".$usuario->foto.
                 "', email = '".$usuario->email.
