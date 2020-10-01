@@ -11,23 +11,42 @@
     if (isset($_POST['btAtualizar']))
     {
         try{
+            $dalUsuario = new DalUsuario(); //criar a dal
+            $usuario = $dalUsuario->getUsuario($_POST['inputId']);
+
+            if(!empty($_FILES[ 'inputFoto' ][ 'name' ])){
+                //var_dump($_FILES['inputFoto']); verificar o que acontoce com o upload
+                $nomeft = $_FILES[ 'inputFoto' ][ 'name' ];//nome da foto
+                $completo = $nomeft . "_" . $data;
+                $targetPath = 0;
+                $path_parts = pathinfo( $nomeft ); //pega dados da foto
+                //Converte para MD5
+                $nome_foto_md5 = md5( $completo );
+            
+                //Agora vai juntar nome em md5 com a extensão
+                $nome_final = $nome_foto_md5 . "." . $path_parts[ 'extension' ];
+                //Pega o nome do arquivo com ele já modificado
+                $targetFile = str_replace( '//', '/', $targetPath ) . $nome_final;
+                //pegando o local em que a foto original se encontra
+                $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];  
+                //indicando para onde vai a foto
+                $diretorio = "imagens/uploads/usuarios/". $targetFile;
+                move_uploaded_file( $temporario, $diretorio );
+              }else{
+                  //salvar no banco de dados
+                  $targetFile = $usuario->foto;
+              }
+
             //pegar os dados da tela
-            $usuario = new ModelUsuario();
             $usuario->id = $_POST['inputId'];
             $usuario->nome = $_POST['inputNome'];
             $usuario->email = $_POST['inputEmail'];
             $usuario->senha = $_POST['inputPassword'];
-            $usuario->foto = 'https://i1.wp.com/dfilitto.com.br/wp-content/uploads/2015/07/FotoPessoa.jpg';
-            //falta fazer o upload
-            //falta verificar se o usuário já existe
-
+            $usuario->foto = $targetFile;
             //salvar no banco de dados
-            $dalUsuario = new DalUsuario();
             $dalUsuario->update($usuario);
-            //validar e-mail
             echo( '<div class="cxnotifica">Registro de código '.$usuario->id.' alterado com sucesso </div>' );
             echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=usuariosList.php'>";
-            //falta falar o resultado da operação
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );

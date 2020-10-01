@@ -11,14 +11,14 @@
     if (isset($_GET['id'])&&$_GET['op']=="detalhes"){
         $id = $_GET['id'];
         $usuario = $dalUsuario->getUsuario($id);
-        echo( '<div class="cxnotifica">'.
+        echo( '<div class="cxnotifica"><div><a href=usuariosList.php> Fechar [x] </a> </div> '.
         "<h2> Dados do usuário</h2>".
         "<h3>Id: ".$usuario->id."</h3>".
         "<h3>Nome: ".$usuario->nome."</h3>".
         "<h3>E-mail: ".$usuario->email."</h3>".
-        '<img src="'.$usuario->foto.'" alt="Foto do usuário" />'.
+        '<img src="imagens/uploads/usuarios/'.$usuario->foto.'" alt="Foto do usuário" width="200px" />'.
         ' </div>' );
-        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+        //echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
     }
 ?>
 
