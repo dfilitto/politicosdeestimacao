@@ -27,14 +27,13 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuUsuario"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="imagens/sistema/geral/no-avatar.png" class="rounded-circle" width="32"
+                        <img src="imagens/uploads/usuarios/<?php echo $_SESSION["foto"];?>" class="rounded-circle" width="32"
                             height="32"><span class="d-none d-sm-inline ml-2">Usuário Logado</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuUsuario">
-                        <a class="dropdown-item" href="#"><i class="far fa-user-circle"></i> Perfil</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-envelope"></i> Mensagens</a>
+                        <a class="dropdown-item" href="usuariosUp.php?id=<?php echo $_SESSION["id"];?>"><i class="far fa-user-circle"></i> Perfil</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Sair do sisema</a>
+                        <a class="dropdown-item" href="login.php"><i class="fas fa-sign-out-alt"></i> Sair do sisema</a>
                     </div>
                 </li>
             </ul>

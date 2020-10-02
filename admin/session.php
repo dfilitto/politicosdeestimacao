@@ -1,6 +1,12 @@
 <?php
     require_once ("dadosdaconexao.php");
     require_once ("autoload.php");
+    
+    session_start();
+    if (isset($_SESSION["email"])==false){
+        header("Location: login.php");
+    }
+
     //mais um monte de coisas
     //pegar hora do sistema do navegador do usuário
     $timezone = new DateTimeZone('America/Sao_Paulo');
