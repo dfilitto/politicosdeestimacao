@@ -50,6 +50,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <!-- Bootstrap core CSS -->
     <link  rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
      <!-- FontWaesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <!-- Custom login css -->
