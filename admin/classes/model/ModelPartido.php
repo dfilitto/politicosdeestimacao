@@ -7,45 +7,19 @@
         private $descricao;
 
         public function __construct($id=0, $nome="", $sigla="", $site="", $numero="", $descricao="") {
-            $this->set_id($id);
-            $this->set_nome($nome);
-            $this->set_sigla($sigla);
-            $this->set_site($site);
-            $this->set_numero($numero);
-            $this->set_numero($descricao);
-        }
-
-        function set_sigla($sigla){
+            $this->id = $id;
+            $this->nome = $nome;
             $this->sigla = $sigla;
-        }
-
-        function get_sigla(){
-            return $this->sigla;
-        }
-
-        function set_site($site){
             $this->site = $site;
-        }
-
-        function get_site(){
-            return $this->site;
-        }
-
-        function set_numero($numero){
             $this->numero = $numero;
-        }
-
-        function get_numero(){
-            return $this->numero;
-        }
-
-        function set_descricao($descricao){
             $this->descricao = $descricao;
         }
-
-        function get_descricao(){
-            return $this->descricao;
+        public function __set($atrib, $value){
+            $this->$atrib = $value;
         }
-
+    
+        public function __get($atrib){
+            return $this->$atrib;
+        }
     }
 ?>

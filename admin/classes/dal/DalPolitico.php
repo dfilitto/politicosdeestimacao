@@ -1,6 +1,6 @@
 <?php
 
-   class DalCargo{
+   class DalPolitico{
 
     //propriedades privadas
     private $typeserver; 
@@ -19,7 +19,7 @@
         }     
     }
 
-    public function insert($cargo){
+    public function insert($politico){
         try {
             //tipod do servidor, local e banco de dados
             $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
@@ -29,15 +29,21 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "insert cargos values (null, '".$cargo->nome."')";
+        
+           // $obj = $this->getPartidoPorSigla($partidos->sigla);
+           
+            $sql = "insert politicos values (null, '".$politico->nome."','".$politico->foto."','".$politico->formacao.
+            "', '".$politico->facebook."','".$politico->Instagram."',' ".$politico->twitter."',' ".$politico->youtube.
+            "','".$politico->tiktok."','".$politico->linkdin."',' ".$politico->whatsapp."',' ".$politico->email."')";
+            echo $sql;
             $conn->exec($sql);
-            $cargo->id=$conn->lastInsertId();
+            $politico->id=$conn->lastInsertId();
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
         }
     }
 
-    public function update($cargo){
+    public function update($politico){
         try {
             //tipod do servidor, local e banco de dados
             $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
@@ -47,12 +53,13 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "update cargos set nome = '".$cargo->nome."' where id = ".$cargo->id;
+            $sql = "update cargos set nome = '".$politico->nome."' where id = ".$politico->id;
             $conn->exec($sql);
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
         }
     }
+
     public function delete($id){
         try {
             //tipod do servidor, local e banco de dados
@@ -63,7 +70,7 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "delete from cargos where id = $id";
+            $sql = "delete from politicos where id = $id";
             $conn->exec($sql);
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
@@ -79,17 +86,17 @@
             //define como irá tratar o erro
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //inserir um cargo
-            $sql = "select * from cargos where nome like '%$valor%'";
+            $sql = "select * from politicos where nome like '%$valor%'";
             //Prepares a statement for execution and returns a statement object
             $stmt  = $conn->query($sql);
-            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCargo', ['id','nome']);
+            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','instagram','twitter','youtube','tiktok','linkdin','whatsapp','email','site']);
             return $result;
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
         }
     }
 
-    public function getCargo($id){
+    public function getPolitico($id){
         //recuper um cargo
         try {
             //tipod do servidor, local e banco de dados
@@ -100,10 +107,10 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "select * from cargos where id = $id";
+            $sql = "select * from politicos where id = $id";
             //Prepares a statement for execution and returns a statement object
             $stmt = $conn->query($sql);
-            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCargo', ['id','nome']);
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','Instagram','twitter','youtube','tik tok','linkdin','whatsapp','email','site']);
             $result = $stmt->fetch();
             return $result;
         } catch(PDOException $e) {
