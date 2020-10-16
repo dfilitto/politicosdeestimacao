@@ -5,6 +5,7 @@
     if (isset($_POST['btCadastrar']))
     {
         try{
+            
           if(!empty($_FILES[ 'inputFoto' ][ 'name' ])){
             //var_dump($_FILES['inputFoto']); verificar o que acontoce com o upload
             $nomeft = $_FILES[ 'inputFoto' ][ 'name' ];//nome da foto
@@ -21,36 +22,36 @@
             //pegando o local em que a foto original se encontra
             $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];  
             //indicando para onde vai a foto
-            $diretorio = "imagens/uploads/usuarios/". $targetFile;
+            $diretorio = "imagens/uploads/politicos/". $targetFile;
             move_uploaded_file( $temporario, $diretorio );
           }else{
               $targetFile = "default.jpg";
           }
-
+         
             //pegar os dados da tela
             $politicos = new ModelPolitico();
-            /*$politicos->id = 0;
+            $politicos->id = 0;
             $politicos->nome = $_POST['inputNome'];
             $politicos->foto = $targetFile;
             $politicos->formacao = $_POST['inputFormacao'];
             $politicos->facebook = $_POST['inputFacebook'];
-            $politicos->Instagram = $_POST['inputInstagram'];
+            $politicos->instagram = $_POST['inputInstagram'];
             $politicos->twitter = $_POST['inputTwitter'];
             $politicos->youtube = $_POST['inputYoutube'];
-            $politicos->tiktok = $_POST['inputTiktok'];
-            $politicos->linkdin = $_POST['inputLinkdin'];
+            $politicos->tiktok = $_POST['inputTikTok'];
+            $politicos->linkedin = $_POST['inputLinkedin'];
             $politicos->whatsapp = $_POST['inputWhatsapp'];
             $politicos->email = $_POST['inputEmail'];
             $politicos->site = $_POST['inputSite'];
             //salvar no banco de dados
-            $dalPoliticos = new DalPoliticos();
-            $dalPoliticos->insert($politicos);*/
+            $dalPoliticos = new DalPolitico();
+            $dalPoliticos->insert($politicos);
             echo( '<div class="cxnotifica">Registro de código '.$politicos->id.' inserido com sucesso </div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=usuariosList.php'>";
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=politicosList.php'>";
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=politicosList.php'>";
 
         } 
     }
@@ -132,7 +133,7 @@
                         <input type="text" class="form-control" id="inputTikTok" placeholder="Tik Tok" name="inputTikTok">
 
                         <label for="inputNome">Linkdin</label>
-                        <input type="text" class="form-control" id="inputLinkdin" placeholder="Linkdin" name="inputLinkedin">
+                        <input type="text" class="form-control" id="inputLinkdin" placeholder="Linkedin" name="inputLinkedin">
 
                         <label for="inputNome">Whatsapp</label>
                         <input type="text" class="form-control" id="inputWhatsapp" placeholder="Whatsapp" name="inputWhatsapp">

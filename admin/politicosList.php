@@ -41,7 +41,7 @@
                     <div class="mr-auto p-1">
                         <h2 class="display-4 titulo-pagina">Listando Politícos</h2>
                     </div>
-                    <a href="usuariosAdd.php">
+                    <a href="politicosAdd.php">
                         <div class="p-1">
                             <button class="btn btn-sm btn-outline-secondary">
                             <i class="fas fa-plus-circle"></i> Cadastar Novo

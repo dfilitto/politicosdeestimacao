@@ -7,12 +7,12 @@
         private $twitter;
         private $youtube;
         private $tiktok;
-        private $linkdin;
+        private $linkedin;
         private $whatsapp;
         private $email;
         private $site;
 
-        public function __construct($id=0, $nome="", $foto="", $formacao="", $facebook="", $instagram="",$twitter="",$youtube="",$tiktok="",$linkdin="",$whatsapp="",$email="",$site="") 
+        public function __construct($id=0, $nome="", $foto="", $formacao="", $facebook="", $instagram="",$twitter="",$youtube="",$tiktok="",$linkedin="",$whatsapp="",$email="",$site="")
         {
             $this->id = $id;
             $this->nome = $nome;
@@ -23,11 +23,11 @@
             $this->twitter = $twitter;
             $this->youtube = $youtube;
             $this->tiktok = $tiktok;
-            $this->linkdin = $linkdin;
+            $this->linkedin = $linkedin;
             $this->whatsapp = $whatsapp;
             $this->email = $email;
             $this->site = $site;
-        }​
+        }
         
         public function __set($atrib, $value){
             $this->$atrib = $value;
@@ -36,6 +36,5 @@
         public function __get($atrib){
             return $this->$atrib;
         }
-    }​​
-
+    }
 ?>

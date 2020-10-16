@@ -32,10 +32,9 @@
         
            // $obj = $this->getPartidoPorSigla($partidos->sigla);
            
-            $sql = "insert politicos values (null, '".$politico->nome."','".$politico->foto."','".$politico->formacao.
-            "', '".$politico->facebook."','".$politico->Instagram."',' ".$politico->twitter."',' ".$politico->youtube.
-            "','".$politico->tiktok."','".$politico->linkdin."',' ".$politico->whatsapp."',' ".$politico->email."')";
-            echo $sql;
+            $sql = "insert politicos (id, nome, foto, formacao, facebook, instagram, twitter, youtube, tiktok, linkedin, whatsapp, email, site) values (null, '".$politico->nome."','".$politico->foto."','".$politico->formacao.
+            "', '".$politico->facebook."','".$politico->instagram."','".$politico->twitter."','".$politico->youtube.
+            "','".$politico->tiktok."','".$politico->linkedin."','".$politico->whatsapp."','".$politico->email."','".$politico->site."')";
             $conn->exec($sql);
             $politico->id=$conn->lastInsertId();
         } catch(PDOException $e) {
@@ -53,7 +52,17 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "update cargos set nome = '".$politico->nome."' where id = ".$politico->id;
+            $sql = "update politicos set nome = '".$politico->nome."',foto = '".$politico->foto.
+            "',formacao = '".$politico->formacao.
+            "',facebook = '".$politico->facebook.
+            "',instagram = '".$politico->instagram.
+            "',twitter = '".$politico->twitter.
+            "',youtube = '".$politico->youtube.
+            "',tiktok = '".$politico->tiktok.
+            "',linkedin = '".$politico->linkedin.
+            "',whatsapp = '".$politico->whatsapp.
+            "',email = '".$politico->email."'".
+            " where id = ".$politico->id;
             $conn->exec($sql);
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
@@ -89,7 +98,7 @@
             $sql = "select * from politicos where nome like '%$valor%'";
             //Prepares a statement for execution and returns a statement object
             $stmt  = $conn->query($sql);
-            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','instagram','twitter','youtube','tiktok','linkdin','whatsapp','email','site']);
+            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','instagram','twitter','youtube','tiktok','linkedin','whatsapp','email','site']);
             return $result;
         } catch(PDOException $e) {
             echo "<h1>Error: " . $e->getMessage()."</h1>";
@@ -110,7 +119,7 @@
             $sql = "select * from politicos where id = $id";
             //Prepares a statement for execution and returns a statement object
             $stmt = $conn->query($sql);
-            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','Instagram','twitter','youtube','tik tok','linkdin','whatsapp','email','site']);
+            $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelPolitico', ['id','nome','foto','formacao','facebook','instagram','twitter','youtube','tiktok','linkedin','whatsapp','email','site']);
             $result = $stmt->fetch();
             return $result;
         } catch(PDOException $e) {
