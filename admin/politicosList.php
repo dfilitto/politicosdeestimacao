@@ -11,7 +11,7 @@
     if (isset($_GET['id'])&&$_GET['op']=="detalhes"){
         $id = $_GET['id'];
         $politico = $dalPoliticos->getPolitico($id);
-        echo( '<div class="cxnotifica"><div><a href=politicosList.php> Fechar [x] </a> </div> '.
+        echo( '<div class="cxnotifica">'.
         "<h2> Dados do Politico</h2>".
         "<h3>Id: ".$politico->id."</h3>".
         "<h3>Nome: ".$politico->nome."</h3>".
@@ -25,8 +25,8 @@
         "<h3>Whatsapp: ".$politico->whatsapp."</h3>".
         "<h3>E-mail: ".$politico->email."</h3>".
         "<h3>Site: ".$politico->site."</h3>".
-        '<img src="imagens/uploads/politicos/'.$politico->foto.'" alt="Foto do usuário" width="200px" />'.
-        ' </div>' );
+        '<img src="imagens/uploads/partidos/'.$politico->foto.'" alt="Foto do usuário" width="200px" margin="10px"/>'.
+        '<div><a href=politicosList.php>Fechar</a></div></div>' );
    }
 ?>
 
@@ -91,12 +91,13 @@
                             <tr>
                                 <th class="d-none d-md-table-cell"><?php echo $u->id; ?></th>
                                 <td><?php echo $u->nome; ?></td>
-                                <td class="d-none d-md-table-cell"><?php echo $u->email; ?></td>
+                                <td class="d-none d-md-table-cell"><a href="mailto:<?php echo $u->email; ?>" target="_blank"><?php echo $u->email; ?></a></td>
                                 <td class="d-none d-md-table-cell"><a href="https://api.whatsapp.com/send/?phone=<?php echo $u->whatsapp; ?>&text&app_absent=0" target="_blank"><?php echo $u->whatsapp; ?></a></td>
                                 
                                 <td class="text-center">
 
  <a href="politicosList.php?id=<?php echo $u->id; ?>&op=detalhes" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-eye"></i></a>
+ <a href="politicospartidosAdd.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-id-card"></i></a>
  <a href="politicosUp.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-edit"></i></a>
  <a href="politicosList.php?id=<?php echo $u->id; ?>&op=excluir" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
 

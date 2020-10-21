@@ -1,58 +1,22 @@
 <?php
-    class ModelCarreira{
-        private $id;
+    class ModelCarreira extends ClasseBase{
         private $cargo_id;
-        private $politicos_id;
         private $ano;
-        private $cidadeestado;
+        private $cidest;
 
-        public function __construct($id=0, $cargo_id="", $politicos_id="", $ano="", $cidadeestado="") {
-            $this->set_id($id);
-            $this->set_politicos_id($politicos_id);
-            $this->set_cargo_id($cargo_id);
-            $this->set_ano($ano);
-            $this->set_cidadeestado($cidadeestado);
-        }
-
-        public function set_id($id){
+        public function __construct($id=0, $politico_id="", $cargo_id="", $ano="", $cidest="") {
             $this->id = $id;
-        }
-
-        public function get_id(){
-            return $this->id;
-        }
-
-        public function set_cargo_id($cargo_id){
+            $this->politicos_id = $politico_id;
             $this->cargo_id = $cargo_id;
-        }
-
-        public function get_cargo_id(){
-            return $this->cargo_id;
-        }
-
-        public function set_politicos_id($politicos_id){
-            $this->politicos_id = $politicos_id;
-        }
-
-        public function get_politicos_id(){
-            return $this->politicos_id;
-        }
-
-        public function set_ano($ano){
             $this->ano = $ano;
+            $this->cidest = $cidest;
         }
-
-        public function get_ano(){
-            return $this->ano;
+        public function __set($atrib, $value){
+            $this->$atrib = $value;
         }
-
-        public function set_cidadeestado($cidadeestado){
-            $this->cidadeestado = $cidadeestado;
+    
+        public function __get($atrib){
+            return $this->$atrib;
         }
-
-        public function get_cidadeestado(){
-            return $this->cidadeestado;
-        }
-
     }
 ?>
