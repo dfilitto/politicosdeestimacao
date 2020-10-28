@@ -2,17 +2,18 @@
     require_once ("session.php");
     $dalPartido = new DalPartido();
     $partidos = $dalPartido->search();
-
     if (isset($_GET['id'])&&$_GET['op']=="excluir"){
         $id = $_GET['id'];
         $dalPartido->delete($id);
         echo( '<div class="cxnotifica">Registro de código '.$id.' sendo excluido </div>' );
         echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=partidosList.php'>";
     }
+
     if (isset($_GET['id'])&&$_GET['op']=="detalhes"){
         $id = $_GET['id'];
         $partido = $dalPartido->getPartidos($id);
         echo( '<div class="cxnotifica">'.
+        '<div><a href="partidosList.php">Fechar [x] </a></div>'.
         "<h2> Dados de Partidos</h2>".
         "<h3>Id: ".$partido->id."</h3>".
         "<h3>Nome: ".$partido->nome."</h3>".
@@ -20,9 +21,8 @@
         "<h3>Site: ".$partido->site."</h3>".
         "<h3>Numero: ".$partido->numero."</h3>".
         "<h3>Descrição: ".$partido->descricao."</h3>".
-        '<div><a href="partidosList.php">Fechar</a></div>
-          </div>' );
-        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=partidosList.php'>";
+        "</div>" );
+        //echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=partidosList.php'>";
     }
 ?>
 

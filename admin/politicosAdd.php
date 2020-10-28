@@ -25,7 +25,7 @@
             $diretorio = "imagens/upload/". $targetFile;
             move_uploaded_file( $temporario, $diretorio );
           }else{
-              $targetFile = "default.png";
+              $targetFile = "default.jpg";
           }
          
             //pegar os dados da tela

@@ -1,12 +1,9 @@
-<?php
- require_once ("session.php");
-?>
 <nav class="navbar navbar-expand navbar-dark bg-secondary">
         <a class="sidebar-toggle text-ligth mr-3">
             <span class="navbar-toggler-icon"></span>
         </a>
         <a class="navbar-brand" href="#">Painel Administrativo</a>
-        <?php echo $diaexplode; ?>
+
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
 
@@ -30,7 +27,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle menu-header" href="#" id="navbarDropdownMenuUsuario"
                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="imagens/upload/<?php echo $_SESSION["foto"];?>" class="rounded-circle" width="32"
+                        <img src="imagens/uploads/usuarios/<?php echo $_SESSION["foto"];?>" class="rounded-circle" width="32"
                             height="32"><span class="d-none d-sm-inline ml-2">Usuário Logado</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuUsuario">

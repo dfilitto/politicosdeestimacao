@@ -4,17 +4,26 @@
     //programar o cadastro
     if (isset($_POST['btCadastrar']))
     {
-        //pegar os dados da tela
-        $partidos = new ModelPartido();
-        $partidos->id = 0;
-        $partidos->nome = $_POST['inputNome'];
-        $partidos->sigla = $_POST['inputSigla'];
-        $partidos->site = $_POST['inputSite'];
-        $partidos->numero = $_POST['inputNumero'];
-        $partidos->descricao = $_POST['inputDescricao'];
-        //salvar no banco de dados
-        $dalPartido = new DalPartido();
-        $dalPartido->insert($partidos);
+        try{
+            //pegar os dados da tela
+            $partido = new ModelPartido();
+            $partido->id = 0;
+            $partido->nome = $_POST['inputNome'];
+            $partido->sigla = $_POST['inputSigla'];
+            $partido->site = $_POST['inputSite'];
+            $partido->numero = $_POST['inputNumero'];
+            $partido->descricao = $_POST['inputDescricao'];
+            //salvar no banco de dados
+            $dalPartido = new DalPartido();
+            $dalPartido->insert($partido);
+            echo( '<div class="cxnotifica">Registro de código '.$partido->id.' inserido com sucesso </div>' );
+                echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=partidosList.php'>";
+        }
+        catch(Exception $erro){
+            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=usuariosList.php'>";
+
+        } 
         
     }
 ?>

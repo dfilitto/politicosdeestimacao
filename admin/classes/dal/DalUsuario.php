@@ -30,8 +30,7 @@
             //echo "Connected successfully <br>"; //conectou
             $obj = $this->getUsuarioPorEmail($usuario->email);
             if($obj == false){
-                $sql = "insert usuarios values (null, '".$usuario->nome."', '".$usuario->foto."', '".$usuario->email.
-                "', '".$usuario->senha."')";
+                $sql = "insert usuarios values (null, '".$usuario->nome."', '".$usuario->foto."', '".$usuario->email."', '".$usuario->senha."')";
                 $conn->exec($sql);
                 $usuario->id=$conn->lastInsertId();
             }
@@ -56,7 +55,7 @@
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
             $obj = $this->getUsuarioPorEmail($usuario->email);
-            if($obj == false || $obj->id = $usuario->id){
+            if($obj == false || $obj->id == $usuario->id){
                 $sql = "update usuarios set nome = '".$usuario->nome.
                 "', foto = '".$usuario->foto.
                 "', email = '".$usuario->email.

@@ -5,14 +5,16 @@
     $cargos = $dalCargo->search();
     
     if (isset($_GET['id']) && $_GET['op']=="excluir"){
+        $msg = '<div class="cxnotifica">Registro de código '.$id.' sendo excluido </div>';
         try{
-        $id = $_GET['id'];
-        $dalCargo->delete($id);
-        echo( '<div class="cxnotifica">Registro de código '.$id.' sendo excluido </div>' );
-        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
+            $id = $_GET['id'];
+            $dalCargo->delete($id);
+            
         }catch(Exception $e) {
-            echo $e->getMessage();
+            $msg = '<div class="cxnotifica"> Error: O registro esta sendo utilizado em outro local</div>';
         }
+        echo( $msg );
+        echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
     }
     if (isset($_GET['id'])&&$_GET['op']=="detalhes"){
         $id = $_GET['id'];
@@ -24,7 +26,7 @@
         "<h3>Nome: ".$cargo->nome."</h3>".
         '<div><a href="cargosList.php">Fechar</a></div>
         </div>' );
-       echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
+       // echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
     }
 
 ?>

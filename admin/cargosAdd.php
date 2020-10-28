@@ -4,20 +4,13 @@
     //programar o cadastro
     if (isset($_POST['btCadastrar']))
     {
-        try{
         //pegar os dados da tela
         $cargo = new ModelCargo();
         $cargo->id = 0;
         $cargo->nome = $_POST['inputNome'];
         $dalcargo = new DalCargo();
         $dalcargo->insert($cargo);
-        echo( '<div class="cxnotifica">Registro de código '.$cargo->id.' inserido com sucesso </div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=cargosList.php'>";
-        }
-        catch(Exception $erro){
-            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
-        }
+        
     }
 ?>
 

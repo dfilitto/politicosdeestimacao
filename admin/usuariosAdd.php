@@ -1,35 +1,31 @@
 <?php 
     require_once ("session.php");
-    //pegar hora do sistema do navegador do usuário
-    $timezone = new DateTimeZone('America/Sao_Paulo');
-    date_default_timezone_set('UTC');
-    setlocale(LC_ALL, NULL);
-    setlocale(LC_ALL, 'pt_BR');
-    $data = date('Y-m-d-H:i:s');
+    
     //echo $data;
     //programar o cadastro
     if (isset($_POST['btCadastrar']))
     {
         try{
           if(!empty($_FILES[ 'inputFoto' ][ 'name' ])){
-            $nomeft = $_FILES[ 'inputFoto' ][ 'name' ];
+            //var_dump($_FILES['inputFoto']); verificar o que acontoce com o upload
+            $nomeft = $_FILES[ 'inputFoto' ][ 'name' ];//nome da foto
             $completo = $nomeft . "_" . $data;
             $targetPath = 0;
-            $path_parts = pathinfo( $nomeft );
-        
+            $path_parts = pathinfo( $nomeft ); //pega dados da foto
             //Converte para MD5
             $nome_foto_md5 = md5( $completo );
         
             //Agora vai juntar nome em md5 com a extensão
             $nome_final = $nome_foto_md5 . "." . $path_parts[ 'extension' ];
-        
             //Pega o nome do arquivo com ele já modificado
             $targetFile = str_replace( '//', '/', $targetPath ) . $nome_final;
-            $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];
-            $diretorio = "imagens/upload/". $targetFile;
+            //pegando o local em que a foto original se encontra
+            $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];  
+            //indicando para onde vai a foto
+            $diretorio = "imagens/uploads/usuarios/". $targetFile;
             move_uploaded_file( $temporario, $diretorio );
           }else{
-              $targetFile = "default.png";
+              $targetFile = "default.jpg";
           }
 
             //pegar os dados da tela
@@ -43,10 +39,8 @@
             //salvar no banco de dados
             $dalUsuario = new DalUsuario();
             $dalUsuario->insert($usuario);
-            //validar e-mail
             echo( '<div class="cxnotifica">Registro de código '.$usuario->id.' inserido com sucesso </div>' );
             echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=usuariosList.php'>";
-            //falta falar o resultado da operação
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );

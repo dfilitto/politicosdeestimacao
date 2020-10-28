@@ -24,7 +24,7 @@
                 //processo de logar
                 session_start();
                 $_SESSION["id"] = $usuario->id;
-                $_SESSION["email"] = $usuario->email;
+                $_SESSION["email"] = $usuario->senha;
                 $_SESSION["foto"] = $usuario->foto;
                 $_SESSION["nome"] = $usuario->nome;
                 header("Location: index.php");

@@ -65,7 +65,7 @@
                         <i class="fas fa-cogs"></i> Configurações
                     </a>
                     <ul class="list-unstyled collapse" id="submenu7">
-                        <li><a href="#"><i class="far fa-envelope"></i> E-mail</a></li>
+                        <li class="active"><a href="#"><i class="far fa-envelope"></i> E-mail</a></li>
                         <li><a href="#"><i class="fas fa-database"></i> Banco de Dados</a></li>
                     </ul>
                 </li>

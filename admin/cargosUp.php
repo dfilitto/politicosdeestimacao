@@ -1,9 +1,10 @@
 <?php 
     require_once ("session.php");
+
     if (isset($_GET['id'])){
         $id = $_GET['id'];
         $dalCargo = new DalCargo();
-        $Cargo = $dalCargo->getCargo($id);
+        $cargo = $dalCargo->getCargo($id);
     }
 
     //programar o cadastro final
@@ -12,15 +13,11 @@
         try{
             $dalCargo = new DalCargo(); //criar a dal
             $cargo = $dalCargo->getCargo($_POST['inputId']);
-
-            $cargo->id = 0;
             $cargo->nome = $_POST['inputNome'];
-
             $dalCargo->update($cargo);
             echo( '<div class="cxnotifica">Registro de código '.$cargo->id.' alterado com sucesso </div>' );
             echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=cargosList.php'>";
-        }
-        catch(Exception $erro){
+        } catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
             echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
 
@@ -62,7 +59,7 @@
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-1">
-                        <h2 class="display-4 titulo-pagina">Alterar Cargos</h2>
+                        <h2 class="display-4 titulo-pagina">Cadastrar Cargos</h2>
                     </div>
                     <a href="cargosList.php">
                         <div class="p-1">

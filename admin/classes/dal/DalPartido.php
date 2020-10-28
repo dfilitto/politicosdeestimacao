@@ -30,6 +30,8 @@
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
             $sql = "insert partidos values (null, '".$partidos->nome."', '".$partidos->sigla."', '".$partidos->site."', '".$partidos->numero."', '".$partidos->descricao."')";
+            echo($sql);
+            var_dump($partidos);
             $conn->exec($sql);
             $partidos->id=$conn->lastInsertId();
 
@@ -48,7 +50,10 @@
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Connected successfully <br>"; //conectou
             //inserir um cargo
-            $sql = "update partidos set nome = '".$partidos->nome."', sigla = '".$partidos->sigla."', site = '".$partidos->site."', numero='".$partidos->numero."', descricao='".$partidos->descricao."' where id = ".$partidos->id;
+            $sql = "update partidos set nome = '".$partidos->nome.
+            "', sigla = '".$partidos->sigla.
+            "', site = '".$partidos->site.
+            "', numero='".$partidos->numero."', descricao='".$partidos->descricao."' where id = ".$partidos->id;
             //echo($sql);
             //var_dump($partidos);
             $conn->exec($sql);

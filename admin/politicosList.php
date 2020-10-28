@@ -25,7 +25,7 @@
         "<h3>Whatsapp: ".$politico->whatsapp."</h3>".
         "<h3>E-mail: ".$politico->email."</h3>".
         "<h3>Site: ".$politico->site."</h3>".
-        '<img src="imagens/upload/'.$politico->foto.'" alt="Foto do usuário" width="200px" margin="10px"/>'.
+        '<img src="imagens/uploads/partidos/'.$politico->foto.'" alt="Foto do usuário" width="200px" margin="10px"/>'.
         '<div><a href=politicosList.php>Fechar</a></div></div>' );
    }
 ?>
@@ -100,6 +100,9 @@
  <a href="politicospartidosAdd.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-id-card"></i></a>
  <a href="politicosUp.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-edit"></i></a>
  <a href="politicosList.php?id=<?php echo $u->id; ?>&op=excluir" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+
+
+
                                 </td>
                             </tr>
                             <?php } ?>

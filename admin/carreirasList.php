@@ -1,7 +1,7 @@
 <?php 
     require_once ("session.php");
     $dalCarreira = new DalCarreira();
-    $carreira = $dalCarreira->search2();
+    $carreira = $dalCarreira->search();
 
     if (isset($_GET['id'])&&$_GET['op']=="excluir"){
         $id = $_GET['id'];
@@ -73,8 +73,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Politicos</th>
-                                <th>Cargos</th>
+                                <th>Politicos ID</th>
+                                <th>Cargos ID</th>
                                 <th>Ano</th>
                                 <th>Cidade/Estado</th>
                                 <th class="text-center">Ações</th>
@@ -84,9 +84,9 @@
                         <tbody>
                             <?php foreach($carreira as $u){ ?>
                             <tr>
-                                <th class="d-none d-md-table-cell"><?php echo $u->idCarreira; ?></th>
-                                <td><?php echo $u->nomePol; ?></td>
-                                <td><?php echo $u->nomeCarg; ?></td>
+                                <th class="d-none d-md-table-cell"><?php echo $u->id; ?></th>
+                                <td><?php echo $u->politicos_id; ?></td>
+                                <td><?php echo $u->cargo_id; ?></td>
                                 <td><?php echo $u->ano; ?></td>
                                 <td><?php echo $u->cidest; ?></td>
                                 <td class="text-center">
@@ -96,7 +96,7 @@
  <a href="carreirasList.php?id=<?php echo $u->id; ?>&op=excluir" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
                                 </td>
                             </tr>
-                            <?php } ?>
+                            <?php } ?>s
                         </tbody>
                     </table>
                 </div>
