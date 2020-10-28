@@ -22,10 +22,10 @@
             //pegando o local em que a foto original se encontra
             $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];  
             //indicando para onde vai a foto
-            $diretorio = "imagens/uploads/politicos/". $targetFile;
+            $diretorio = "imagens/upload/". $targetFile;
             move_uploaded_file( $temporario, $diretorio );
           }else{
-              $targetFile = "default.jpg";
+              $targetFile = "default.png";
           }
          
             //pegar os dados da tela

@@ -1,22 +1,5 @@
 <?php 
     require_once ("session.php");
-
-    //programar o cadastro
-    if (isset($_POST['btCadastrar']))
-    {
-        //pegar os dados da tela
-        $partidos = new ModelPartido();
-        $partidos->id = 0;
-        $partidos->nome = $_POST['inputNome'];
-        $partidos->sigla = $_POST['inputSigla'];
-        $partidos->site = $_POST['inputSite'];
-        $partidos->numero = $_POST['inputNumero'];
-        $partidos->descricao = $_POST['inputDescricao'];
-        //salvar no banco de dados
-        $dalPartido = new DalPartido();
-        $dalPartido->insert($partidos);
-        
-    }
 ?>
 
 
@@ -29,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Partidos - VCSjunior Sistemas</title>
+    <title>Usuários - VCSjunior Sistemas</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -52,9 +35,9 @@
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-1">
-                        <h2 class="display-4 titulo-pagina">Cadastrar Partidos</h2>
+                        <h2 class="display-4 titulo-pagina">Alterar Usuário</h2>
                     </div>
-                    <a href="partidosList.php">
+                    <a href="usuariosList.php">
                         <div class="p-1">
                             <button class="btn btn-sm btn-outline-secondary">
                                     <i class="fas fa-undo-alt"></i> Listar todos
@@ -63,26 +46,28 @@
                     </a>
                 </div>
                 <div class="dropdown-divider"></div>
-                <form enctype="multipart/form-data" action="#" method="post">
-
+                <form enctype="multipart/form-data" action="#">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome" name="inputNome">
-
-                        <label for="inputNome">Sigla</label>
-                        <input type="text" class="form-control" id="inputSigla" placeholder="Sigla" name="inputSigla">
-
-                        <label for="inputNome">Site</label>
-                        <input type="text" class="form-control" id="inputSite" placeholder="Site" name="inputSite">
-
-                        <label for="inputNome">Numero</label>
-                        <input type="text" class="form-control" id="inputNumero" placeholder="Numero" name="inputNumero">
-
-                        <label for="inputNome">Descrição</label>
-                        <input type="text" class="form-control" id="inputDescricao" placeholder="Descrição" name="inputDescricao">
+                        <input type="text" class="form-control" id="inputNome" placeholder="Nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFoto">Foto</label>
+                        <input type="file" class="form-control" id="inputFoto"
+                        >
                     </div>
                     
-                    <button type="submit" class="btn btn-primary" name="btCadastrar">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary">Alterar</button>
                 </form>
 
             </div>

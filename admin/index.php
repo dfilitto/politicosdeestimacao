@@ -3,7 +3,7 @@ require_once ("session.php");
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "politicosestimacao";
+$dbname = "politicodeestimacao";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -23,7 +23,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
     $row3 = mysqli_fetch_assoc($result3);
     $totalCargos = $row3['quant'];
     
-    $sql4 = "SELECT COUNT(id) as quant FROM partido";
+    $sql4 = "SELECT COUNT(id) as quant FROM partidos";
     $result4 = $conn->query($sql4);   
     $row4 = mysqli_fetch_assoc($result4);
     $totalPartidos = $row4['quant'];

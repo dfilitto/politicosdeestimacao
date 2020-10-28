@@ -1,33 +1,61 @@
 <?php 
     require_once ("session.php");
-    $id = 0;
+   
+
+    $dalPolpar = new DalPoliticosPartidos();
+    $polspars = $dalPolpar->search2();
+
     if (isset($_POST['btCadastrar'])){
         try{
-        //pegar os dados da tela
-        //inserir
         
+            $polpar = new ModelPoliticohasPartido();
+            $polpar->id = 0;
+            $polpar->politicos_id = $_POST['inputPolitico'];
+            $polpar->partidos_id = $_POST['inputPartido'];
+            $polpar->dtin = $_POST['inputAnoIni'];
+            $polpar->dtout = $_POST['inputAnoFim'];  
+            if(isset($_POST['inputFiliado']))
+            {
+                $polpar->filiado = 1;
+            }else{
+                $polpar->filiado = 0;
+            }
+            $dalPolpar = new DalPoliticosPartidos();
+            $dalPolpar->insert($polpar);
+            //validar e-mail
+            //echo( '<div class="cxnotifica">Registro de código '.$polpar->id.' inserido com sucesso </div>' );
+            //echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=politicosList.php'>";
+
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
         }
-    } 
-
+        catch(Exception $erro){
+            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
+        }
+        
+    }
+    if (isset($_GET['id'])&&isset($_GET['op'])&&$_GET['op']=="excluir"){
+        $idpp = $_GET['idpp'];
+        $dalPolpar->delete($idpp);
+        header('Location: politicospartidosAdd.php?id='.$_GET['id']);
+    }
     if (isset($_GET['id'])){
         $id=$_GET['id'];
         $dalPolitico = new DalPolitico();
         $politico = $dalPolitico->getpolitico($id);
         
     }
-
+    
     if ($id == 0)
     {
         header("Location: politicosList.php"); 
     }
     
-
+    
     $dalPartido = new DalPartido();
     $partidos = $dalPartido->search();
-
+  
     
 ?>
 
@@ -58,21 +86,14 @@
         <!--Inicio Menu -->
     <?php include('inc_NavTwo.php'); ?>
         <!--Fim menu -->
-
         <!--INICIO APRESENTAR CONTEUDO-->
         <div class="content p-3">
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-1">
-                        <h2 class="display-4 titulo-pagina">Gerenciar a vida partidaria do político</h2>
-                        <?php
-                            echo ('<img src="imagens/uploads/politicos/'.$politico->foto.'" alt="Foto do usuário" width="200px" margin="10px"/>');
-                            echo ("<h3>Id: ".$politico->id."</h3>");  
-                            echo ("<h3>Nome: ".$politico->nome."</h3>");
-                            echo ("<h3>Formação: ".$politico->formacao."</h3>");
-                            echo ("<h3>Site: ".$politico->site."</h3>");   
-                        ?>
+                        <h2 class="display-4 titulo-pagina">Gerenciar a vida Partidária do Politico</h2>
                     </div>
+
                     <a href="politicosList.php">
                         <div class="p-1">
                             <button class="btn btn-sm btn-outline-secondary">
@@ -82,28 +103,85 @@
                     </a>
                 </div>
                 <div class="dropdown-divider"></div>
-                
                 <form enctype="multipart/form-data" action="#" method="post">
                     <label for="inputPartido">Selecione o Partido</label>
                     <select name="inputPartido" id="inputPartido">
                         <option value="">Partidos</option>
                         <?php foreach($partidos as $u){​​?>
-                            <option value="<?php echo $u->id; ?>"><?php echo $u->nome; ?></option>
+                            <option value="<?php echo $u->id; ?>"><?php echo $u->sigla; ?></option>
                         <?php }​​ ?>
                     </select>
                     <label for="inputFiliado">Filiado</label>
-                    <input type="checkbox" id="inputFiliado" name="inputFilitto">
+                    <input type="checkbox" id="inputFiliado" name="inputFiliado">
                     <br>
                     <label for="inputAnoIni">Ano inicial da filiação</label>
-                    <input type="number" class="form-control" id="inputAnoIni" name="inputAnoIni">
+                    <input type="date" class="form-control" id="inputAnoIni" placeholder="Ano inicial" name="inputAnoIni">
                     <label for="inputAnoFim">Ano final da filiação</label>
-                    <input type="number" class="form-control" id="inputAnoFim" name="inputAnoFim">
+                    <input type="date" class="form-control" id="inputAnoFim" placeholder="Ano final" name="inputAnoFim">
                     <br>        
-                    <input type="hidden" id="inputId" name="inputId" value="<?php echo $politico->id;?>">      
+                    <input type="hidden" id="inputPolitico" name="inputPolitico" value="<?php echo $politico->id;?>">      
                     <button type="submit" class="btn btn-primary" name="btCadastrar">Cadastrar</button>
                     <br>
                     </div>
                 </form>
+                <div class="tb">
+                        <?php
+                        echo('<div class="img">');
+                        echo('<img src="imagens/upload/'.$politico->foto.'" alt="Foto do usuário" width="200px" margin="10px"/>');
+                        echo('</div>');
+                        echo('<div class="tb">');
+                        echo("<h3>ID</h3>");
+                        echo("<h3>Nome</h3>");
+                        echo("<h3>Formação</h3>");
+                        echo("<h3>Site</h3>");
+                        echo("<h2>".$politico->id."</h2>");
+                        echo("<h2>".$politico->nome."</h2>");
+                        echo("<h2>".$politico->formacao."</h2>");
+                        echo("<h2>".$politico->site."</h2>");;
+                        echo('</div>');
+                        ?>
+             </div>
+             <div class="dropdown-divider"></div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="d-none d-md-table-cell">ID</th>
+                                <th class="d-none d-md-table-cell">Partidos</th>
+                                <th>Data Inicial</th>
+                                <th class="d-none d-md-table-cell">Data Final</th>
+                                <th class="d-none d-md-table-cell">Status</th>
+                                <th class="text-center">Ações</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php foreach($polspars as $u){ 
+                                if ($u->filiado == 0){
+                                    $fili = "Não filiado";
+                                }else{
+                                    $fili = "Filiado";
+                                }
+                                
+                                ?>
+                            <tr>
+                                <th class="d-none d-md-table-cell"><?php echo $u->idPolpar; ?></th>
+                                <th class="d-none d-md-table-cell"><?php echo $u->nome; ?></th>
+                                <td class="d-none d-md-table-cell"><?php echo date('d/m/Y', strtotime($u->dtin));?></td>
+                                <td class="d-none d-md-table-cell"><?php echo date('d/m/Y', strtotime($u->dtout)); ?></td>
+                                <td class="d-none d-md-table-cell"><?php echo $fili; ?></td>
+                                <td class="text-center">
+
+<a href="partidosUp.php?id=<?php echo $u->id; ?>" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-edit"></i></a>
+<a href="politicospartidosAdd.php?id=<?php echo $u->politicos_id; ?>&idpp=<?php echo $u->id; ?>&op=excluir" type="button" class="btn btn-sm btn-outline-danger"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             </div>
         </div>
         <!--FIM APRESENTAR CONTEUDO-->

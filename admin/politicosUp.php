@@ -29,7 +29,7 @@
                 //pegando o local em que a foto original se encontra
                 $temporario = $_FILES[ 'inputFoto' ][ 'tmp_name' ];  
                 //indicando para onde vai a foto
-                $diretorio = "imagens/uploads/politicos/". $targetFile;
+                $diretorio = "imagens/upload/". $targetFile;
                 move_uploaded_file( $temporario, $diretorio );
               }else{
                   //salvar no banco de dados
@@ -52,12 +52,12 @@
             $politicos->foto = $targetFile;
             //salvar no banco de dados
             $dalPoliticos->update($politicos);
-            //echo( '<div class="cxnotifica">Registro de código '.$politicos->id.' alterado com sucesso </div>' );
-            //echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=politicosList.php'>";
+            echo( '<div class="cxnotifica">Registro de código '.$politicos->id.' alterado com sucesso </div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=politicosList.php'>";
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=poliitocosList.php'>";
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=politicosList.php'>";
 
         } 
     }
@@ -150,7 +150,7 @@
                         <label for="inputNome">Site</label>
                         <input type="text" class="form-control" id="inputSite" placeholder="Site" name="inputSite" value="<?php echo $politicos->site;?>">
                     </div>
-                    
+                    <input type="hidden" name="inputId" value="<?php echo $politicos->id; ?>" >
                     <button type="submit" class="btn btn-primary" name="btAtualizar">Atualizar</button>
                 </form>
 

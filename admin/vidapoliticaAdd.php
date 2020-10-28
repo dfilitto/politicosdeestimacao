@@ -5,16 +5,15 @@
     if (isset($_POST['btCadastrar']))
     {
         //pegar os dados da tela
-        $partidos = new ModelPartido();
-        $partidos->id = 0;
-        $partidos->nome = $_POST['inputNome'];
-        $partidos->sigla = $_POST['inputSigla'];
-        $partidos->site = $_POST['inputSite'];
-        $partidos->numero = $_POST['inputNumero'];
-        $partidos->descricao = $_POST['inputDescricao'];
+        $vidapolitica = new ModelVidaPolitica();
+        $vidapolitica->id = 0;
+        $vidapolitica->atividade = $_POST['inputVidaPolitica'];
+        $vidapolitica->email = $_POST['inputDescrição'];
+        $vidapolitica->senha = $_POST['inputAtpositiva'];
+        $vidapolitica->foto = "Temporário";
         //salvar no banco de dados
-        $dalPartido = new DalPartido();
-        $dalPartido->insert($partidos);
+        $dalvidapolitica = new DalVidaPolitica();
+        $dalvidapolitica->insert($vidapolitica);
         
     }
 ?>
@@ -29,7 +28,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Partidos - VCSjunior Sistemas</title>
+    <title>Vida Politica - VCSjunior Sistemas</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -52,9 +51,9 @@
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-1">
-                        <h2 class="display-4 titulo-pagina">Cadastrar Partidos</h2>
+                        <h2 class="display-4 titulo-pagina">Cadastrar Vida Politica</h2>
                     </div>
-                    <a href="partidosList.php">
+                    <a href="vidapoliticaList.php">
                         <div class="p-1">
                             <button class="btn btn-sm btn-outline-secondary">
                                     <i class="fas fa-undo-alt"></i> Listar todos
@@ -64,24 +63,20 @@
                 </div>
                 <div class="dropdown-divider"></div>
                 <form enctype="multipart/form-data" action="#" method="post">
-
-                    <div class="form-group">
-                        <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome" name="inputNome">
-
-                        <label for="inputNome">Sigla</label>
-                        <input type="text" class="form-control" id="inputSigla" placeholder="Sigla" name="inputSigla">
-
-                        <label for="inputNome">Site</label>
-                        <input type="text" class="form-control" id="inputSite" placeholder="Site" name="inputSite">
-
-                        <label for="inputNome">Numero</label>
-                        <input type="text" class="form-control" id="inputNumero" placeholder="Numero" name="inputNumero">
-
-                        <label for="inputNome">Descrição</label>
-                        <input type="text" class="form-control" id="inputDescricao" placeholder="Descrição" name="inputDescricao">
+                    <div class="form-row">
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="inputVidaPolitica">Vida Politica</label>
+                        <input type="text" class="form-control" id="inputVidaPolitica" placeholder="Vida Politica" name="inputVidaPolitica">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescrição">Descrição</label>
+                        <input type="text" class="form-control" id="inputDescrição" placeholder="Descrição" name="inputDescrição">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAtpositiva">Atos Positivos</label>
+                        <input type="text" class="form-control" id="inputAtpositiva" placeholder="Atos Positivos" name="inputAtpositiva">
+                    </div>
                     <button type="submit" class="btn btn-primary" name="btCadastrar">Cadastrar</button>
                 </form>
 

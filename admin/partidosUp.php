@@ -25,7 +25,7 @@
         }
         catch(Exception $erro){
             echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
-            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=partidosList.php'>";
+            //echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=partidosList.php'>";
 
         } 
     }

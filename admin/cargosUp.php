@@ -1,21 +1,30 @@
 <?php 
     require_once ("session.php");
+    if (isset($_GET['id'])){
+        $id = $_GET['id'];
+        $dalCargo = new DalCargo();
+        $Cargo = $dalCargo->getCargo($id);
+    }
 
-    //programar o cadastro
-    if (isset($_POST['btCadastrar']))
+    //programar o cadastro final
+    if (isset($_POST['btAtualizar']))
     {
-        //pegar os dados da tela
-        $partidos = new ModelPartido();
-        $partidos->id = 0;
-        $partidos->nome = $_POST['inputNome'];
-        $partidos->sigla = $_POST['inputSigla'];
-        $partidos->site = $_POST['inputSite'];
-        $partidos->numero = $_POST['inputNumero'];
-        $partidos->descricao = $_POST['inputDescricao'];
-        //salvar no banco de dados
-        $dalPartido = new DalPartido();
-        $dalPartido->insert($partidos);
-        
+        try{
+            $dalCargo = new DalCargo(); //criar a dal
+            $cargo = $dalCargo->getCargo($_POST['inputId']);
+
+            $cargo->id = 0;
+            $cargo->nome = $_POST['inputNome'];
+
+            $dalCargo->update($cargo);
+            echo( '<div class="cxnotifica">Registro de código '.$cargo->id.' alterado com sucesso </div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='2;URL=cargosList.php'>";
+        }
+        catch(Exception $erro){
+            echo( '<div class="cxnotifica">Error:'.$erro->getMessage().'</div>' );
+            echo "<meta HTTP-EQUIV='Refresh' CONTENT='5;URL=cargosList.php'>";
+
+        } 
     }
 ?>
 
@@ -29,7 +38,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v3.8.5">
-    <title>Partidos - VCSjunior Sistemas</title>
+    <title>Cargo - Políticos Sistemas</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -48,13 +57,14 @@
         <!--Fim menu -->
 
         <!--INICIO APRESENTAR CONTEUDO-->
-        <div class="content p-3">
+                <div class="dropdown-divider"></div>
+                <div class="content p-3">
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-1">
-                        <h2 class="display-4 titulo-pagina">Cadastrar Partidos</h2>
+                        <h2 class="display-4 titulo-pagina">Alterar Cargos</h2>
                     </div>
-                    <a href="partidosList.php">
+                    <a href="cargosList.php">
                         <div class="p-1">
                             <button class="btn btn-sm btn-outline-secondary">
                                     <i class="fas fa-undo-alt"></i> Listar todos
@@ -64,25 +74,12 @@
                 </div>
                 <div class="dropdown-divider"></div>
                 <form enctype="multipart/form-data" action="#" method="post">
-
                     <div class="form-group">
-                        <label for="inputNome">Nome</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome" name="inputNome">
-
-                        <label for="inputNome">Sigla</label>
-                        <input type="text" class="form-control" id="inputSigla" placeholder="Sigla" name="inputSigla">
-
-                        <label for="inputNome">Site</label>
-                        <input type="text" class="form-control" id="inputSite" placeholder="Site" name="inputSite">
-
-                        <label for="inputNome">Numero</label>
-                        <input type="text" class="form-control" id="inputNumero" placeholder="Numero" name="inputNumero">
-
-                        <label for="inputNome">Descrição</label>
-                        <input type="text" class="form-control" id="inputDescricao" placeholder="Descrição" name="inputDescricao">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" name="btCadastrar">Cadastrar</button>
+                        <label for="inputNome">Cargo</label>
+                        <input type="text" class="form-control" id="inputNome" placeholder="Cargo" name="inputNome" value="<?php echo $cargo->nome; ?>">
+                    </div> 
+                    <input type="hidden" name="inputId" value="<?php echo $cargo->id; ?>" >         
+                    <button type="submit" class="btn btn-primary" name="btAtualizar">Atualizar</button>
                 </form>
 
             </div>

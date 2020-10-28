@@ -66,7 +66,7 @@
             $sql = "delete from cargos where id = $id";
             $conn->exec($sql);
         } catch(PDOException $e) {
-            echo "<h1>Error: " . $e->getMessage()."</h1>";
+            echo "<h1>Error: O registro sendo utlizado em outro local</h1>";
         }
     }
 

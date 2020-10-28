@@ -89,6 +89,25 @@
         }
     }
 
+    public function search2($valor=""){
+        try {
+            //tipod do servidor, local e banco de dados
+            $server = $this->typeserver.":host=".$this->servername.";dbname=".$this->dbname;
+            //cria a conexão com o servidor por meio do usuário informado  
+            $conn = new PDO($server, $this->username, $this->password);
+            //define como irá tratar o erro
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //inserir um cargo
+            $sql = "select * from getCarreira"; 
+            //Prepares a statement for execution and returns a statement object
+            $stmt  = $conn->query($sql);
+            $result = $stmt->fetchAll(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'ModelCarreira', ['id','politicos_id', 'cargo_id','ano', 'cidest' ]);
+            return $result;
+        } catch(PDOException $e) {
+            echo "<h1>Error: " . $e->getMessage()."</h1>";
+        }
+    }
+/* select carreiras.id as idCarreira, carreiras.politicos_id as idPol, politicos.nome as nomePol, cargos.id as idCarg, cargos.nome as nomeCarg, carreiras.ano, carreiras.cidest from carreiras INNER JOIN politicos ON carreiras.politicos_id = politicos.id INNER JOIN cargos ON carreiras.cargo_id = cargos.id */
     public function getCarreira($id){
         //recuper um cargo
         try {
